@@ -18,10 +18,27 @@ class User(db.Model):
         return check_password_hash(self.password_hash, password)
 
 class Quest(db.Model):
-    id = db.Column(db.integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     description = db.Column(db.Text, index=True, nullable=False)
     image = db.Column(db.LargeBinary)
-    createdby = db.relationship("User", backref="user")
+    created_by = db.relationship("User", backref="user")
+
 
     #user_id = db.Column(db.integer, db.ForeignKey("user.id"))
+
+
+
+
+
+
+
+class QuestsInProgress(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    quest_id = db.Column(db.Integer, db.ForeignKey('quest.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class QuestsCompleted(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    quest_id = db.Column(db.Integer, db.ForeignKey('quest.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
