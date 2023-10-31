@@ -10,6 +10,7 @@ class User(db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     bio = db.Column(db.String(256), index=True)
     password_hash = db.Column(db.String(128))
+    #Implement something for badges?
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
