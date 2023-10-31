@@ -19,11 +19,10 @@ class User(db.Model):
 
 class Quest(db.Model):
     id = db.Column(db.integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.string(64), nullable=False)
     description = db.Column(db.Text, index=True, nullable=False)
     image = db.Column(db.LargeBinary)
     createdby = db.relationship("User", backref="user")
-
-    #user_id = db.Column(db.integer, db.ForeignKey("user.id"))
 
 class Review(db.Model):
     id = db.Column(db.integer, primary_key=True, autoincrement=True)
@@ -31,3 +30,4 @@ class Review(db.Model):
     image = db.Column(db.LargeBinary)
     user_id = db.Column(db.integer, db.ForeignKey("user.id"))
     quest_id = db.Column(db.integer, db.ForeignKey("quest.id"))
+    #questtitle = db.relationship("Quest", backref="quest")
