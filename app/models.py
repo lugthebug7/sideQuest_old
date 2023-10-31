@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import db, login
 
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(64), index=True, unique=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
@@ -32,6 +32,7 @@ class Review(db.Model):
     image = db.Column(db.LargeBinary)
     user_id = db.Column(db.integer, db.ForeignKey("user.id"))
     quest_id = db.Column(db.integer, db.ForeignKey("quest.id"))
+    #questtitle = db.relationship("Quest", backref="quest")
 
 
 
