@@ -26,6 +26,12 @@ class Quest(db.Model):
 
     #user_id = db.Column(db.integer, db.ForeignKey("user.id"))
 
+class Review(db.Model):
+    id = db.Column(db.integer, primary_key=True, autoincrement=True)
+    review_text = db.Column(db.Text, index=True)
+    image = db.Column(db.LargeBinary)
+    user_id = db.Column(db.integer, db.ForeignKey("user.id"))
+    quest_id = db.Column(db.integer, db.ForeignKey("quest.id"))
 
 
 
