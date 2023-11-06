@@ -32,6 +32,6 @@ class LoginForm(FlaskForm):
 
 
 class CreateQuestForm(FlaskForm):
-    quest_name = StringField('SideQuest Name', validators=[DataRequired])
-    description = StringField('Description', validators=[DataRequired])
+    quest_name = StringField('SideQuest Name', validators=[DataRequired()])
+    description = StringField('Description', validators=[DataRequired()])
     submit = SubmitField('Create')

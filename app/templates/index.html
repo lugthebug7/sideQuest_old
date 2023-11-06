@@ -1,1 +1,24 @@
-e
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block styles %}
+    {{ super() }}
+    <style>
+        body {
+            background-color: whitesmoke;
+        }
+
+        .container {
+            color: black;
+        }
+    </style>
+{% endblock %}
+
+
+{% block app_content %}
+    <div class="container mb-4">
+        <h1 class="mt-5">Hello, {{ current_user.username }}, Welcome to SideQuest</h1>
+        <p>WE HAVE SIDEQUEST</p>
+    </div>
+{% endblock %}
+

@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import db, login
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(64), index=True, unique=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -54,4 +54,11 @@ class QuestsCompleted(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     quest_id = db.Column(db.Integer, db.ForeignKey('quest.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+
+
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
+
 
