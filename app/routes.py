@@ -61,9 +61,9 @@ def register():
 
 
 
-@app.route('/quest_page/<quest_id>', methods=['GET', 'POST'])
-@login_required
-def quest_page(quest_id):
+#@app.route('/quest_page/<quest_id>', methods=['GET', 'POST'])
+#@login_required
+#def quest_page(quest_id):
 
 
 
