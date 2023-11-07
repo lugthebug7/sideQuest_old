@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}Create Quest{% endblock %}
+
+{% block stylesheets %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/register.js') }}"></script>
+{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <style>
+
+    /* Whole Page Background Color */
+        body {
+            background-color: #A18276;
+        }
+
+        .container {
+            color: black;
+        }
+    </style>
+{% endblock %}
+
+{% block app_content %}
+    <div class="container mb-4 w-100">
+        <h1 class="mt-5">Create Quest</h1>
+        {{ wtf.quick_form(form, extra_classes="mt-4") }}
+    </div>
+{% endblock %}

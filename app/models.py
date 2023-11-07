@@ -25,6 +25,7 @@ class User(UserMixin, db.Model):
 
 class Quest(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(64), index=True, nullable=False, unique=True)
     description = db.Column(db.Text, index=True, nullable=False)
     image = db.Column(db.LargeBinary)
 
