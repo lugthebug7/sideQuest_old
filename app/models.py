@@ -56,7 +56,6 @@ class QuestsCompleted(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
-
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))

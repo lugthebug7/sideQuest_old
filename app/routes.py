@@ -12,9 +12,6 @@ from app import app
 from app.forms import *
 from app.models import *
 
-
-
-
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index')
 @login_required
