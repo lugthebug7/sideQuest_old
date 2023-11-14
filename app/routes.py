@@ -1,7 +1,8 @@
+import io
 from datetime import datetime
 from urllib import parse
 
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash, request, send_file
 from flask_login import login_required, current_user, login_user, logout_user
 from sqlalchemy.orm import aliased
 
@@ -76,10 +77,28 @@ def create_account():
 @login_required
 def quest_page(quest_id):
     quest = Quest.query.filter_by(id=quest_id).first()
+    image = send_file(io.BytesIO(quest.image), mimetype='image/jpeg')
+
+    #query = (
+     #   db.session.query(Quest.name.label('quest_name'), Quest.description.label('quest_description'), Quest.image.label('quest_image'), QuestGenres.genre.label('quest_genre'))
+      #  .join(QuestGenres, Quest.id == QuestGenres.quest_id)
+       # .filter(Quest.id == quest_id)
+    #)
+    #results = query.all()
     return render_template('questPage.html', title='Quest Page', quest=quest)
 
 
 
+
+@app.route('/image/<int:quest_id>')
+def image(quest_id):
+    quest = Quest.query.get(quest_id)
+
+    if quest and quest.image:
+        return send_file(io.BytesIO(quest.image), mimetype='image/jpeg')
+    else:
+        flash('Image not found')
+        return redirect(url_for('index'))
 
 
 

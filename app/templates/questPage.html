@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+    <h2>{{ quest.title }}</h2>
+    <div>
+        <p>{{ quest.description }}</p>
+    </div>
+    <div>
+       <h3>Events:</h3>
+        <ul>
+            {% if quest.image %}
+                <img src="{{ url_for('image', filename=quest.id) }}" alt="Quest Image">
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}

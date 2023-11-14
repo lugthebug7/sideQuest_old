@@ -11,9 +11,13 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     bio = db.Column(db.String(256), index=True)
     password_hash = db.Column(db.String(128))
+    admin = db.Column(db.Boolean, default=False)
 
     created_by = db.relationship("Quest", backref="user", lazy='dynamic')
     review = db.relationship('Review', backref='user', lazy='dynamic')
+    in_progress = db.relationship('QuestsInProgress', backref='user', lazy='dynamic')
+
+
     #Implement something for badges?
 
     def set_password(self, password):
