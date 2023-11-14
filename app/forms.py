@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField, DateField, SelectField, SelectMultipleField, BooleanField, \
-    PasswordField
+    PasswordField, FileField
 from wtforms.validators import DataRequired, ValidationError, Optional, Email, EqualTo
 
 from app.models import *
@@ -34,4 +34,5 @@ class LoginForm(FlaskForm):
 class CreateQuestForm(FlaskForm):
     quest_name = StringField('SideQuest Name', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
+    image = FileField('Image', validators=[DataRequired()])
     submit = SubmitField('Create')

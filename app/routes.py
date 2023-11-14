@@ -54,20 +54,30 @@ def register():
         return redirect(url_for('index'))
     return render_template('createAccount.html', title='Register', form=form)
 
+
 @app.route('/create', methods=['GET', 'POST'])
-def create():
-    if current_user.is_authenticated:
-        return redirect(url_for('create'))
+@login_required
+def create_account():
     form = CreateQuestForm()
     print(1)
     if form.validate_on_submit():
         print(2)
-        quest = Quest(title=form.title.data, description=form.description.data)
+        new_image = form.image.data
+        image_data = new_image.read()
+        quest = Quest(title=form.quest_name.data, description=form.description.data, image=image_data, user_id=current_user.id)
         db.session.add(quest)
         db.session.commit()
         flash('Your quest has been submitted!')
         return redirect(url_for('index'))
     return render_template('createQuest.html', title='Create Quest', form=form)
+
+
+@app.route('/quest_page/<quest_id>', methods=['GET', 'POST'])
+@login_required
+def quest_page(quest_id):
+    quest = Quest.query.filter_by(id=quest_id).first()
+    return render_template('questPage.html', title='Quest Page', quest=quest)
+
 
 
 
