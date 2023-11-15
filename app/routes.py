@@ -58,7 +58,7 @@ def register():
 
 @app.route('/create', methods=['GET', 'POST'])
 @login_required
-def create_account():
+def create_quest():
     form = CreateQuestForm()
     print(1)
     if form.validate_on_submit():
