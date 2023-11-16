@@ -75,6 +75,14 @@ def create_quest():
     return render_template('createQuest.html', title='Create Quest', form=form)
 
 
+@app.route('/quests', methods=['GET', 'POST'])
+@login_required
+def all_quests():
+    #We will later do filtered queries to get quests based on genre, etc.
+    quests = Quest.query.all()
+    return render_template('quests.html', title='All Quests', quests=quests)
+
+
 @app.route('/quest_page/<quest_id>', methods=['GET', 'POST'])
 @login_required
 def quest_page(quest_id):
