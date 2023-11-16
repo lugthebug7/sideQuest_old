@@ -34,5 +34,4 @@ class LoginForm(FlaskForm):
 class CreateQuestForm(FlaskForm):
     quest_name = StringField('SideQuest Name', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
-    image = FileField('Image', validators=[DataRequired()])
     submit = SubmitField('Create')

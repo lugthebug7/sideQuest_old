@@ -20,6 +20,7 @@ def index():
     return render_template('index.html', title='Home')
 
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -63,7 +64,8 @@ def create_quest():
     print(1)
     if form.validate_on_submit():
         print(2)
-        new_image = form.image.data
+        new_image = request.files['image']
+        #new_image = form.image.data
         image_data = new_image.read()
         quest = Quest(title=form.quest_name.data, description=form.description.data, image=image_data, user_id=current_user.id)
         db.session.add(quest)
