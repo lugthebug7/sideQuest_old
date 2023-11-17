@@ -129,7 +129,7 @@ def logout():
 
 @app.route('/populate_database', methods=['GET', 'POST'])
 def populate_database():
-    for i in range(0,96):
+    for i in range(0,50):
         image_url = f'https://picsum.photos/250/250/?random={i}'
         response = requests.get(image_url)
         if response.status_code == 200:

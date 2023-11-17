@@ -9,7 +9,41 @@
 
     .container {
         margin-top: 20px;
+    }
+    .carousel-control-prev {
+        position: relative;
+        padding: 0;
+        /*use this display this to center the indicators horizontally*/
+        display: table;
+        top: 0px;
+        border-radius: 5px;
+        height: 10px;
+        margin-left: 2px;
+        margin-right: 2px;
+        width: 10px;
+    }
 
+    .carousel-control-next {
+        position: relative;
+        padding: 0;
+        /*use this display this to center the indicators horizontally*/
+        display: table;
+        top: 0px;
+        border-radius: 5px;
+        height: 15px;
+        margin-left: 0px;
+        margin-right: 2px;
+        width: 10px;
+    }
+
+    .carousel-control-next .carousel-control-prev li {
+        background-color: rgba(223, 223, 223, 0.40);
+        border-radius: 5px;
+        height: 10px;
+        margin-left: 2px;
+        margin-right: 2px;
+        width: 10px;
+        cursor: pointer;
     }
 </style>
 
