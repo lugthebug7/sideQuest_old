@@ -1,142 +1,39 @@
 {% extends "base.html" %}
 {% block title %}All Quests{% endblock %}
 {% block app_content %}
+
+<style>
+    .carousel {
+        margin-bottom: 35px; /* Adjust the value as needed */
+    }
+
+    .container {
+        margin-top: 20px;
+
+    }
+</style>
+
 <div class="container">
+    <h2>Stay-At-Home</h2>
     <div class="row">
         <div class="col-md-12">
             <div id="Carousel1" class="carousel slide" data-ride="carousel" data-interval="false">
 
                 <!-- Carousel items -->
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
+                    {% for chunk in quests|batch(4) %}
+                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <div class="row">
+                                {% for image in chunk %}
+                                    <div class="col-md-3">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{ url_for('image', quest_id=image.id) }}" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                {% endfor %}
                             </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add more items as needed -->
                         </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add more items as needed -->
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add items for the third row -->
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add items for the fourth row -->
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add items for the fifth row -->
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
 
                 <!-- Navigation buttons -->
@@ -151,141 +48,26 @@
             </div><!--.Carousel-->
         </div>
     </div>
-<div class="row">
+    <h2>Stay-At-Home</h2>
+    <div class="row">
         <div class="col-md-12">
             <div id="Carousel2" class="carousel slide" data-ride="carousel" data-interval="false">
 
                 <!-- Carousel items -->
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
+                    {% for chunk in quests|batch(4) %}
+                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <div class="row">
+                                {% for image in chunk %}
+                                    <div class="col-md-3">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{ url_for('image', quest_id=image.id) }}" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                {% endfor %}
                             </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add more items as needed -->
                         </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add more items as needed -->
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add items for the third row -->
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add items for the fourth row -->
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add items for the fifth row -->
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
 
                 <!-- Navigation buttons -->
@@ -300,141 +82,26 @@
             </div><!--.Carousel-->
         </div>
     </div>
-<div class="row">
+    <h2>Stay-At-Home</h2>
+    <div class="row">
         <div class="col-md-12">
             <div id="Carousel3" class="carousel slide" data-ride="carousel" data-interval="false">
 
                 <!-- Carousel items -->
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
+                    {% for chunk in quests|batch(4) %}
+                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <div class="row">
+                                {% for image in chunk %}
+                                    <div class="col-md-3">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{ url_for('image', quest_id=image.id) }}" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                {% endfor %}
                             </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add more items as needed -->
                         </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add more items as needed -->
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add items for the third row -->
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add items for the fourth row -->
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add items for the fifth row -->
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
 
                 <!-- Navigation buttons -->
@@ -449,141 +116,26 @@
             </div><!--.Carousel-->
         </div>
     </div>
-<div class="row">
+    <h2>Stay-At-Home</h2>
+    <div class="row">
         <div class="col-md-12">
             <div id="Carousel4" class="carousel slide" data-ride="carousel" data-interval="false">
 
                 <!-- Carousel items -->
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
+                    {% for chunk in quests|batch(4) %}
+                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <div class="row">
+                                {% for image in chunk %}
+                                    <div class="col-md-3">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{ url_for('image', quest_id=image.id) }}" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                {% endfor %}
                             </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add more items as needed -->
                         </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add more items as needed -->
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add items for the third row -->
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add items for the fourth row -->
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="thumbnail">
-                                    <img src="{{ url_for('image', quest_id=1) }}" alt="Image" style="max-width:100%;">
-                                </a>
-                            </div>
-                            <!-- Add items for the fifth row -->
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
 
                 <!-- Navigation buttons -->
@@ -592,6 +144,142 @@
                     <span class="sr-only">Previous</span>
                 </a>
                 <a class="carousel-control-next" href="#Carousel4" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div><!--.Carousel-->
+        </div>
+    </div>
+    <h2>Stay-At-Home</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="Carousel5" class="carousel slide" data-ride="carousel" data-interval="false">
+
+                <!-- Carousel items -->
+                <div class="carousel-inner">
+                    {% for chunk in quests|batch(4) %}
+                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <div class="row">
+                                {% for image in chunk %}
+                                    <div class="col-md-3">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{ url_for('image', quest_id=image.id) }}" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Navigation buttons -->
+                <a class="carousel-control-prev" href="#Carousel5" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#Carousel5" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div><!--.Carousel-->
+        </div>
+    </div>
+    <h2>Stay-At-Home</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="Carousel6" class="carousel slide" data-ride="carousel" data-interval="false">
+
+                <!-- Carousel items -->
+                <div class="carousel-inner">
+                    {% for chunk in quests|batch(4) %}
+                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <div class="row">
+                                {% for image in chunk %}
+                                    <div class="col-md-3">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{ url_for('image', quest_id=image.id) }}" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Navigation buttons -->
+                <a class="carousel-control-prev" href="#Carousel6" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#Carousel6" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div><!--.Carousel-->
+        </div>
+    </div>
+    <h2>Stay-At-Home</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="Carousel7" class="carousel slide" data-ride="carousel" data-interval="false">
+
+                <!-- Carousel items -->
+                <div class="carousel-inner">
+                    {% for chunk in quests|batch(4) %}
+                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <div class="row">
+                                {% for image in chunk %}
+                                    <div class="col-md-3">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{ url_for('image', quest_id=image.id) }}" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Navigation buttons -->
+                <a class="carousel-control-prev" href="#Carousel7" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#Carousel7" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div><!--.Carousel-->
+        </div>
+    </div>
+    <h2>Stay-At-Home</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="Carousel8" class="carousel slide" data-ride="carousel" data-interval="false">
+
+                <!-- Carousel items -->
+                <div class="carousel-inner">
+                    {% for chunk in quests|batch(4) %}
+                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <div class="row">
+                                {% for image in chunk %}
+                                    <div class="col-md-3">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{ url_for('image', quest_id=image.id) }}" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Navigation buttons -->
+                <a class="carousel-control-prev" href="#Carousel8" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#Carousel8" role="button" data-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>

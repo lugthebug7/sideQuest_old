@@ -2,6 +2,9 @@ import io
 from datetime import datetime
 from urllib import parse
 
+import requests
+import os
+
 from flask import render_template, redirect, url_for, flash, request, send_file
 from flask_login import login_required, current_user, login_user, logout_user
 from sqlalchemy.orm import aliased
@@ -122,5 +125,24 @@ def image(quest_id):
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+@app.route('/populate_database', methods=['GET', 'POST'])
+def populate_database():
+    for i in range(0,96):
+        image_url = f'https://picsum.photos/250/250/?random={i}'
+        response = requests.get(image_url)
+        if response.status_code == 200:
+            name = 'Quest' + str(i)
+            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            new_image = response.content
+            new_quest = Quest(title=name, description=description, image=new_image)
+            db.session.add(new_quest)
+            db.session.commit()
+    return render_template('index.html', title='Home')
+
+
+
+
 
 
