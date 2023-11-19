@@ -55,13 +55,13 @@
 
                 <!-- Carousel items -->
                 <div class="carousel-inner">
-                    {% for chunk in quests|batch(4) %}
+                    {% for chunk in genre1|batch(4) %}
                         <div class="carousel-item {% if loop.first %}active{% endif %}">
                             <div class="row">
                                 {% for image in chunk %}
                                     <div class="col-md-3">
                                         <a href="#" class="thumbnail">
-                                            <img src="{{ url_for('image', quest_id=image.id) }}" alt="Image" style="max-width:100%;">
+                                            <img src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
                                         </a>
                                     </div>
                                 {% endfor %}
@@ -82,20 +82,20 @@
             </div><!--.Carousel-->
         </div>
     </div>
-    <h2>Stay-At-Home</h2>
+    <h2>Transportation Necessary</h2>
     <div class="row">
         <div class="col-md-12">
             <div id="Carousel2" class="carousel slide" data-ride="carousel" data-interval="false">
 
                 <!-- Carousel items -->
                 <div class="carousel-inner">
-                    {% for chunk in quests|batch(4) %}
+                    {% for chunk in genre2|batch(4) %}
                         <div class="carousel-item {% if loop.first %}active{% endif %}">
                             <div class="row">
                                 {% for image in chunk %}
                                     <div class="col-md-3">
                                         <a href="#" class="thumbnail">
-                                            <img src="{{ url_for('image', quest_id=image.id) }}" alt="Image" style="max-width:100%;">
+                                            <img src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
                                         </a>
                                     </div>
                                 {% endfor %}
@@ -116,20 +116,20 @@
             </div><!--.Carousel-->
         </div>
     </div>
-    <h2>Stay-At-Home</h2>
+    <h2>Free</h2>
     <div class="row">
         <div class="col-md-12">
             <div id="Carousel3" class="carousel slide" data-ride="carousel" data-interval="false">
 
                 <!-- Carousel items -->
                 <div class="carousel-inner">
-                    {% for chunk in quests|batch(4) %}
+                    {% for chunk in genre3|batch(4) %}
                         <div class="carousel-item {% if loop.first %}active{% endif %}">
                             <div class="row">
                                 {% for image in chunk %}
                                     <div class="col-md-3">
                                         <a href="#" class="thumbnail">
-                                            <img src="{{ url_for('image', quest_id=image.id) }}" alt="Image" style="max-width:100%;">
+                                            <img src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
                                         </a>
                                     </div>
                                 {% endfor %}
@@ -150,20 +150,20 @@
             </div><!--.Carousel-->
         </div>
     </div>
-    <h2>Stay-At-Home</h2>
+    <h2>Paid</h2>
     <div class="row">
         <div class="col-md-12">
             <div id="Carousel4" class="carousel slide" data-ride="carousel" data-interval="false">
 
                 <!-- Carousel items -->
                 <div class="carousel-inner">
-                    {% for chunk in quests|batch(4) %}
+                    {% for chunk in genre4|batch(4) %}
                         <div class="carousel-item {% if loop.first %}active{% endif %}">
                             <div class="row">
                                 {% for image in chunk %}
                                     <div class="col-md-3">
                                         <a href="#" class="thumbnail">
-                                            <img src="{{ url_for('image', quest_id=image.id) }}" alt="Image" style="max-width:100%;">
+                                            <img src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
                                         </a>
                                     </div>
                                 {% endfor %}
@@ -184,20 +184,20 @@
             </div><!--.Carousel-->
         </div>
     </div>
-    <h2>Stay-At-Home</h2>
+    <h2>21+</h2>
     <div class="row">
         <div class="col-md-12">
             <div id="Carousel5" class="carousel slide" data-ride="carousel" data-interval="false">
 
                 <!-- Carousel items -->
                 <div class="carousel-inner">
-                    {% for chunk in quests|batch(4) %}
+                    {% for chunk in genre5|batch(4) %}
                         <div class="carousel-item {% if loop.first %}active{% endif %}">
                             <div class="row">
                                 {% for image in chunk %}
                                     <div class="col-md-3">
                                         <a href="#" class="thumbnail">
-                                            <img src="{{ url_for('image', quest_id=image.id) }}" alt="Image" style="max-width:100%;">
+                                            <img src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
                                         </a>
                                     </div>
                                 {% endfor %}
@@ -218,20 +218,20 @@
             </div><!--.Carousel-->
         </div>
     </div>
-    <h2>Stay-At-Home</h2>
+    <h2>Best for Groups</h2>
     <div class="row">
         <div class="col-md-12">
             <div id="Carousel6" class="carousel slide" data-ride="carousel" data-interval="false">
 
                 <!-- Carousel items -->
                 <div class="carousel-inner">
-                    {% for chunk in quests|batch(4) %}
+                    {% for chunk in genre6|batch(4) %}
                         <div class="carousel-item {% if loop.first %}active{% endif %}">
                             <div class="row">
                                 {% for image in chunk %}
                                     <div class="col-md-3">
                                         <a href="#" class="thumbnail">
-                                            <img src="{{ url_for('image', quest_id=image.id) }}" alt="Image" style="max-width:100%;">
+                                            <img src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
                                         </a>
                                     </div>
                                 {% endfor %}
@@ -252,20 +252,20 @@
             </div><!--.Carousel-->
         </div>
     </div>
-    <h2>Stay-At-Home</h2>
+    <h2>Best for Couples</h2>
     <div class="row">
         <div class="col-md-12">
             <div id="Carousel7" class="carousel slide" data-ride="carousel" data-interval="false">
 
                 <!-- Carousel items -->
                 <div class="carousel-inner">
-                    {% for chunk in quests|batch(4) %}
+                    {% for chunk in genre7|batch(4) %}
                         <div class="carousel-item {% if loop.first %}active{% endif %}">
                             <div class="row">
                                 {% for image in chunk %}
                                     <div class="col-md-3">
                                         <a href="#" class="thumbnail">
-                                            <img src="{{ url_for('image', quest_id=image.id) }}" alt="Image" style="max-width:100%;">
+                                            <img src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
                                         </a>
                                     </div>
                                 {% endfor %}
@@ -286,20 +286,20 @@
             </div><!--.Carousel-->
         </div>
     </div>
-    <h2>Stay-At-Home</h2>
+    <h2>Best for Locals</h2>
     <div class="row">
         <div class="col-md-12">
             <div id="Carousel8" class="carousel slide" data-ride="carousel" data-interval="false">
 
                 <!-- Carousel items -->
                 <div class="carousel-inner">
-                    {% for chunk in quests|batch(4) %}
+                    {% for chunk in genre8|batch(4) %}
                         <div class="carousel-item {% if loop.first %}active{% endif %}">
                             <div class="row">
                                 {% for image in chunk %}
                                     <div class="col-md-3">
                                         <a href="#" class="thumbnail">
-                                            <img src="{{ url_for('image', quest_id=image.id) }}" alt="Image" style="max-width:100%;">
+                                            <img src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
                                         </a>
                                     </div>
                                 {% endfor %}

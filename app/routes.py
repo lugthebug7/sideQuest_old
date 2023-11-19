@@ -12,17 +12,16 @@ from sqlalchemy.orm import aliased
 
 from werkzeug.urls import url_parse
 
-
 from app import app
 from app.forms import *
 from app.models import *
+
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index')
 @login_required
 def index():
     return render_template('index.html', title='Home')
-
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -42,6 +41,7 @@ def login():
         return redirect(next_page)
 
     return render_template('login.html', title='Login', form=form)
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -69,9 +69,10 @@ def create_quest():
     if form.validate_on_submit():
         print(2)
         new_image = request.files['image']
-        #new_image = form.image.data
+        # new_image = form.image.data
         image_data = new_image.read()
-        quest = Quest(title=form.quest_name.data, description=form.description.data, image=image_data, user_id=current_user.id)
+        quest = Quest(title=form.quest_name.data, description=form.description.data, image=image_data,
+                      user_id=current_user.id)
         db.session.add(quest)
         db.session.commit()
         flash('Your quest has been submitted!')
@@ -82,9 +83,58 @@ def create_quest():
 @app.route('/quests', methods=['GET', 'POST'])
 @login_required
 def all_quests():
-    #We will later do filtered queries to get quests based on genre, etc.
-    quests = Quest.query.all()
-    return render_template('quests.html', title='All Quests', quests=quests)
+    # We will later do filtered queries to get quests based on genre, etc.
+
+    genre1 = db.session.query(Quest, Genre.genre). \
+        join(QuestGenres, Quest.id == QuestGenres.quest_id). \
+        join(Genre, Genre.id == QuestGenres.genre_id). \
+        filter(QuestGenres.genre_id == 1). \
+        all()
+
+    genre2 = db.session.query(Quest, Genre.genre). \
+        join(QuestGenres, Quest.id == QuestGenres.quest_id). \
+        join(Genre, Genre.id == QuestGenres.genre_id). \
+        filter(QuestGenres.genre_id == 2). \
+        all()
+
+    genre3 = db.session.query(Quest, Genre.genre). \
+        join(QuestGenres, Quest.id == QuestGenres.quest_id). \
+        join(Genre, Genre.id == QuestGenres.genre_id). \
+        filter(QuestGenres.genre_id == 3). \
+        all()
+
+    genre4 = db.session.query(Quest, Genre.genre). \
+        join(QuestGenres, Quest.id == QuestGenres.quest_id). \
+        join(Genre, Genre.id == QuestGenres.genre_id). \
+        filter(QuestGenres.genre_id == 4). \
+        all()
+
+    genre5 = db.session.query(Quest, Genre.genre). \
+        join(QuestGenres, Quest.id == QuestGenres.quest_id). \
+        join(Genre, Genre.id == QuestGenres.genre_id). \
+        filter(QuestGenres.genre_id == 5). \
+        all()
+
+    genre6 = db.session.query(Quest, Genre.genre). \
+        join(QuestGenres, Quest.id == QuestGenres.quest_id). \
+        join(Genre, Genre.id == QuestGenres.genre_id). \
+        filter(QuestGenres.genre_id == 6). \
+        all()
+
+    genre7 = db.session.query(Quest, Genre.genre). \
+        join(QuestGenres, Quest.id == QuestGenres.quest_id). \
+        join(Genre, Genre.id == QuestGenres.genre_id). \
+        filter(QuestGenres.genre_id == 7). \
+        all()
+
+    genre8 = db.session.query(Quest, Genre.genre). \
+        join(QuestGenres, Quest.id == QuestGenres.quest_id). \
+        join(Genre, Genre.id == QuestGenres.genre_id). \
+        filter(QuestGenres.genre_id == 8). \
+        all()
+
+    return render_template('quests.html', title='All Quests', genre1=genre1, genre2=genre2,
+                           genre3=genre3, genre4=genre4, genre5=genre5, genre6=genre6, genre7=genre7, genre8=genre8)
 
 
 @app.route('/quest_page/<quest_id>', methods=['GET', 'POST'])
@@ -93,15 +143,13 @@ def quest_page(quest_id):
     quest = Quest.query.filter_by(id=quest_id).first()
     image = send_file(io.BytesIO(quest.image), mimetype='image/jpeg')
 
-    #query = (
-     #   db.session.query(Quest.name.label('quest_name'), Quest.description.label('quest_description'), Quest.image.label('quest_image'), QuestGenres.genre.label('quest_genre'))
-      #  .join(QuestGenres, Quest.id == QuestGenres.quest_id)
-       # .filter(Quest.id == quest_id)
-    #)
-    #results = query.all()
+    # query = (
+    #   db.session.query(Quest.name.label('quest_name'), Quest.description.label('quest_description'), Quest.image.label('quest_image'), QuestGenres.genre.label('quest_genre'))
+    #  .join(QuestGenres, Quest.id == QuestGenres.quest_id)
+    # .filter(Quest.id == quest_id)
+    # )
+    # results = query.all()
     return render_template('questPage.html', title='Quest Page', quest=quest)
-
-
 
 
 @app.route('/image/<int:quest_id>')
@@ -115,11 +163,9 @@ def image(quest_id):
         return redirect(url_for('index'))
 
 
-
-#@app.route('/quest_page/<quest_id>', methods=['GET', 'POST'])
-#@login_required
-#def quest_page(quest_id):
-
+# @app.route('/quest_page/<quest_id>', methods=['GET', 'POST'])
+# @login_required
+# def quest_page(quest_id):
 
 
 @app.route('/logout')
@@ -131,6 +177,7 @@ def logout():
 @app.route('/populate_database', methods=['GET', 'POST'])
 def populate_database():
     Quest.query.delete()
+    QuestGenres.query.delete()
     db.session.commit()
     for i in range(0, 96):
         image_url = f'https://picsum.photos/250/250/?random={i}'
@@ -146,16 +193,13 @@ def populate_database():
                            "est laborum.")
             new_image = response.content
             new_quest = Quest(title=name, description=description, image=new_image)
-            x = random.randint(1, 15)
             db.session.add(new_quest)
             db.session.commit()
+            x = random.randint(1, 15)
+            quest_genre = QuestGenres(quest_id=new_quest.id, genre_id=x)
+            db.session.add(quest_genre)
+            x = random.randint(1, 15)
             quest_genre = QuestGenres(quest_id=new_quest.id, genre_id=x)
             db.session.add(quest_genre)
             db.session.commit()
     return render_template('index.html', title='Home')
-
-
-
-
-
-
