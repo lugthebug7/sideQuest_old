@@ -84,6 +84,7 @@ def create_quest():
 @login_required
 def all_quests():
     # We will later do filtered queries to get quests based on genre, etc.
+    filler = Quest.query.filter_by(id=97).first()
 
     genre1 = db.session.query(Quest, Genre.genre). \
         join(QuestGenres, Quest.id == QuestGenres.quest_id). \
@@ -134,7 +135,7 @@ def all_quests():
         all()
 
     return render_template('quests.html', title='All Quests', genre1=genre1, genre2=genre2,
-                           genre3=genre3, genre4=genre4, genre5=genre5, genre6=genre6, genre7=genre7, genre8=genre8)
+                           genre3=genre3, genre4=genre4, genre5=genre5, genre6=genre6, genre7=genre7, genre8=genre8, filler=filler)
 
 
 @app.route('/quest_page/<quest_id>', methods=['GET', 'POST'])
