@@ -142,7 +142,6 @@ def all_quests():
 @login_required
 def quest_page(quest_id):
     quest = Quest.query.filter_by(id=quest_id).first()
-    image = send_file(io.BytesIO(quest.image), mimetype='image/jpeg')
 
     # query = (
     #   db.session.query(Quest.name.label('quest_name'), Quest.description.label('quest_description'), Quest.image.label('quest_image'), QuestGenres.genre.label('quest_genre'))

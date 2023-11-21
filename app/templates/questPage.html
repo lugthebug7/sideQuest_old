@@ -2,16 +2,44 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
-    <h2>{{ quest.title }}</h2>
-    <div>
-        <p>{{ quest.description }}</p>
-    </div>
-    <div>
-       <h3>Events:</h3>
-        <ul>
-            {% if quest.image %}
-                <img src="{{ url_for('image', filename=quest.id) }}" alt="Quest Image">
-            {% endif %}
-        </ul>
+
+<style>
+    .container {
+        margin-top: 50px;
+    }
+    .page-header {
+        margin-bottom: 50px;
+    }
+    .page-header h1 {
+        margin-bottom: 20px;
+    }
+    .page-header p {
+        margin-bottom: 20px;
+    }
+    .page-header img {
+        margin-bottom: 20px;
+    }
+    .page-header .row {
+        margin-bottom: 20px;
+    }
+    .page-header .row .col-md-3 {
+        margin-bottom: 20px;
+    }
+    .page-header .row .col-md-3 img {
+        margin-bottom: 20px;
+    }
+</style>
+    <div class="container">
+        <div class="page-header">
+            <h1>{{ quest.title }}</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>{{ quest.description }}</p>
+                </div>
+                <div class="col-md-6">
+                    <img src="{{ url_for('image', quest_id=quest.id) }}" alt="Image" style="max-width:175%;">
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
