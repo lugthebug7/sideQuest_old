@@ -48,9 +48,7 @@ def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = NewUserForm()
-    print(1)
     if form.validate_on_submit():
-        print(2)
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)
@@ -65,15 +63,18 @@ def register():
 @login_required
 def create_quest():
     form = CreateQuestForm()
-    print(1)
     if form.validate_on_submit():
-        print(2)
         new_image = request.files['image']
-        # new_image = form.image.data
         image_data = new_image.read()
         quest = Quest(title=form.quest_name.data, description=form.description.data, image=image_data,
                       user_id=current_user.id)
         db.session.add(quest)
+        for i in range(len(form.genres.data)):
+            print(form.genres.data[i])
+            genre_id = Genre.query.filter_by(genre=form.genres.data[i]).first()
+            print(genre_id)
+            quest_genre = QuestGenres(quest_id=quest.id, genre_id=genre_id.id)
+            db.session.add(quest_genre)
         db.session.commit()
         flash('Your quest has been submitted!')
         return redirect(url_for('index'))
