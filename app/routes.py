@@ -6,7 +6,7 @@ from urllib import parse
 import requests
 import os
 
-from flask import render_template, redirect, url_for, flash, request, send_file
+from flask import render_template, redirect, url_for, flash, request, send_file, send_from_directory
 from flask_login import login_required, current_user, login_user, logout_user
 from sqlalchemy.orm import aliased
 
@@ -85,7 +85,7 @@ def create_quest():
 @login_required
 def all_quests():
     # We will later do filtered queries to get quests based on genre, etc.
-    filler = Quest.query.filter_by(id=97).first()
+    filler = Quest.query.filter_by(id=1).first()
 
     genre1 = db.session.query(Quest, Genre.genre). \
         join(QuestGenres, Quest.id == QuestGenres.quest_id). \
@@ -135,8 +135,52 @@ def all_quests():
         filter(QuestGenres.genre_id == 8). \
         all()
 
+    genre9 = db.session.query(Quest, Genre.genre). \
+        join(QuestGenres, Quest.id == QuestGenres.quest_id). \
+        join(Genre, Genre.id == QuestGenres.genre_id). \
+        filter(QuestGenres.genre_id == 9). \
+        all()
+
+    genre10 = db.session.query(Quest, Genre.genre). \
+        join(QuestGenres, Quest.id == QuestGenres.quest_id). \
+        join(Genre, Genre.id == QuestGenres.genre_id). \
+        filter(QuestGenres.genre_id == 10). \
+        all()
+
+    genre11 = db.session.query(Quest, Genre.genre). \
+        join(QuestGenres, Quest.id == QuestGenres.quest_id). \
+        join(Genre, Genre.id == QuestGenres.genre_id). \
+        filter(QuestGenres.genre_id == 11). \
+        all()
+
+    genre12 = db.session.query(Quest, Genre.genre). \
+        join(QuestGenres, Quest.id == QuestGenres.quest_id). \
+        join(Genre, Genre.id == QuestGenres.genre_id). \
+        filter(QuestGenres.genre_id == 12). \
+        all()
+
+    genre13 = db.session.query(Quest, Genre.genre). \
+        join(QuestGenres, Quest.id == QuestGenres.quest_id). \
+        join(Genre, Genre.id == QuestGenres.genre_id). \
+        filter(QuestGenres.genre_id == 13). \
+        all()
+
+    genre14 = db.session.query(Quest, Genre.genre). \
+        join(QuestGenres, Quest.id == QuestGenres.quest_id). \
+        join(Genre, Genre.id == QuestGenres.genre_id). \
+        filter(QuestGenres.genre_id == 14). \
+        all()
+
+    genre15 = db.session.query(Quest, Genre.genre). \
+        join(QuestGenres, Quest.id == QuestGenres.quest_id). \
+        join(Genre, Genre.id == QuestGenres.genre_id). \
+        filter(QuestGenres.genre_id == 15). \
+        all()
+
     return render_template('quests.html', title='All Quests', genre1=genre1, genre2=genre2,
-                           genre3=genre3, genre4=genre4, genre5=genre5, genre6=genre6, genre7=genre7, genre8=genre8, filler=filler)
+                           genre3=genre3, genre4=genre4, genre5=genre5, genre6=genre6, genre7=genre7, genre8=genre8,
+                           genre9=genre9, genre10=genre10, genre11=genre11, genre12=genre12, genre13=genre13,
+                           genre14=genre14, genre15=genre15, filler=filler)
 
 
 @app.route('/quest_page/<quest_id>', methods=['GET', 'POST'])
@@ -180,7 +224,20 @@ def populate_database():
     Quest.query.delete()
     QuestGenres.query.delete()
     db.session.commit()
-    for i in range(0, 96):
+    y = random.randint(1, 1500000000000000000000000000000)
+    name = 'Coming Soon ' + str(y)
+
+    # Assuming the image file is in the 'static' folder
+    image_path = "app/static/MORE-COMING-SOON.png"
+
+    with open(image_path, "rb") as image_file:
+        image_data = image_file.read()
+
+    new_quest = Quest(title=name, description="More Quests Coming Soon!", image=image_data)
+    db.session.add(new_quest)
+    db.session.commit()
+
+    for i in range(1, 96):
         image_url = f'https://picsum.photos/250/250/?random={i}'
         response = requests.get(image_url)
         if response.status_code == 200:

@@ -405,6 +405,307 @@
             </div>
         </div><!--.Carousel-->
     </div>
+    </div>
+    <h2>Best for Friends</h2>
+    <div class="row">
+    <div class="col-md-12">
+        <div id="Carousel9" class="carousel slide" data-ride="carousel" data-interval="false">
+
+            <!-- Navigation buttons outside the carousel items -->
+            <a class="carousel-control-prev" href="#Carousel9" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#Carousel9" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+                {% for chunk in genre9|batch(4) %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <div class="row">
+                            {% for image in chunk %}
+                                <div class="col-md-3">
+                                    <a href="{{ url_for('quest_page', quest_id = image.Quest.id) }}" class="thumbnail">
+                                        <img src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
+                                    </a>
+                                </div>
+                            {% endfor %}
+                            {% if chunk|length < 4 %} {# Add empty slots to maintain layout #}
+                                {% for i in range(4 - chunk|length) %}
+                                    <div class="col-md-3">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{ url_for('image', quest_id=filler.id) }}" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div><!--.Carousel-->
+    </div>
+</div>
+    <h2>Best for Dates</h2>
+    <div class="row">
+    <div class="col-md-12">
+        <div id="Carousel10" class="carousel slide" data-ride="carousel" data-interval="false">
+
+            <!-- Navigation buttons outside the carousel items -->
+            <a class="carousel-control-prev" href="#Carousel10" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#Carousel10" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+                {% for chunk in genre10|batch(4) %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <div class="row">
+                            {% for image in chunk %}
+                                <div class="col-md-3">
+                                    <a href="{{ url_for('quest_page', quest_id = image.Quest.id) }}" class="thumbnail">
+                                        <img src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
+                                    </a>
+                                </div>
+                            {% endfor %}
+                            {% if chunk|length < 4 %} {# Add empty slots to maintain layout #}
+                                {% for i in range(4 - chunk|length) %}
+                                    <div class="col-md-3">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{ url_for('image', quest_id=filler.id) }}" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div><!--.Carousel-->
+    </div>
+</div>
+    <h2>Best for Parties</h2>
+    <div class="row">
+    <div class="col-md-12">
+        <div id="Carousel11" class="carousel slide" data-ride="carousel" data-interval="false">
+
+            <!-- Navigation buttons outside the carousel items -->
+            <a class="carousel-control-prev" href="#Carousel11" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#Carousel11" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+                {% for chunk in genre11|batch(4) %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <div class="row">
+                            {% for image in chunk %}
+                                <div class="col-md-3">
+                                    <a href="{{ url_for('quest_page', quest_id = image.Quest.id) }}" class="thumbnail">
+                                        <img src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
+                                    </a>
+                                </div>
+                            {% endfor %}
+                            {% if chunk|length < 4 %} {# Add empty slots to maintain layout #}
+                                {% for i in range(4 - chunk|length) %}
+                                    <div class="col-md-3">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{ url_for('image', quest_id=filler.id) }}" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div><!--.Carousel-->
+    </div>
+</div>
+    <h2>Best for Introverts</h2>
+    <div class="row">
+    <div class="col-md-12">
+        <div id="Carousel12" class="carousel slide" data-ride="carousel" data-interval="false">
+
+            <!-- Navigation buttons outside the carousel items -->
+            <a class="carousel-control-prev" href="#Carousel12" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#Carousel12" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+                {% for chunk in genre12|batch(4) %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <div class="row">
+                            {% for image in chunk %}
+                                <div class="col-md-3">
+                                    <a href="{{ url_for('quest_page', quest_id = image.Quest.id) }}" class="thumbnail">
+                                        <img src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
+                                    </a>
+                                </div>
+                            {% endfor %}
+                            {% if chunk|length < 4 %} {# Add empty slots to maintain layout #}
+                                {% for i in range(4 - chunk|length) %}
+                                    <div class="col-md-3">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{ url_for('image', quest_id=filler.id) }}" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div><!--.Carousel-->
+    </div>
+</div>
+    <h2>Best for Extroverts</h2>
+    <div class="row">
+    <div class="col-md-12">
+        <div id="Carousel13" class="carousel slide" data-ride="carousel" data-interval="false">
+
+            <!-- Navigation buttons outside the carousel items -->
+            <a class="carousel-control-prev" href="#Carousel13" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#Carousel13" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+                {% for chunk in genre13|batch(4) %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <div class="row">
+                            {% for image in chunk %}
+                                <div class="col-md-3">
+                                    <a href="{{ url_for('quest_page', quest_id = image.Quest.id) }}" class="thumbnail">
+                                        <img src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
+                                    </a>
+                                </div>
+                            {% endfor %}
+                            {% if chunk|length < 4 %} {# Add empty slots to maintain layout #}
+                                {% for i in range(4 - chunk|length) %}
+                                    <div class="col-md-3">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{ url_for('image', quest_id=filler.id) }}" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div><!--.Carousel-->
+    </div>
+</div>
+    <h2>Best for Locals</h2>
+    <div class="row">
+    <div class="col-md-12">
+        <div id="Carousel14" class="carousel slide" data-ride="carousel" data-interval="false">
+
+            <!-- Navigation buttons outside the carousel items -->
+            <a class="carousel-control-prev" href="#Carousel14" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#Carousel14" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+                {% for chunk in genre14|batch(4) %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <div class="row">
+                            {% for image in chunk %}
+                                <div class="col-md-3">
+                                    <a href="{{ url_for('quest_page', quest_id = image.Quest.id) }}" class="thumbnail">
+                                        <img src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
+                                    </a>
+                                </div>
+                            {% endfor %}
+                            {% if chunk|length < 4 %} {# Add empty slots to maintain layout #}
+                                {% for i in range(4 - chunk|length) %}
+                                    <div class="col-md-3">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{ url_for('image', quest_id=filler.id) }}" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div><!--.Carousel-->
+    </div>
+</div>
+    <h2>Best for Tourists</h2>
+    <div class="row">
+    <div class="col-md-12">
+        <div id="Carousel15" class="carousel slide" data-ride="carousel" data-interval="false">
+
+            <!-- Navigation buttons outside the carousel items -->
+            <a class="carousel-control-prev" href="#Carousel15" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#Carousel15" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+                {% for chunk in genre15|batch(4) %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <div class="row">
+                            {% for image in chunk %}
+                                <div class="col-md-3">
+                                    <a href="{{ url_for('quest_page', quest_id = image.Quest.id) }}" class="thumbnail">
+                                        <img src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
+                                    </a>
+                                </div>
+                            {% endfor %}
+                            {% if chunk|length < 4 %} {# Add empty slots to maintain layout #}
+                                {% for i in range(4 - chunk|length) %}
+                                    <div class="col-md-3">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{ url_for('image', quest_id=filler.id) }}" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div><!--.Carousel-->
+    </div>
 </div>
 {% endblock %}
 
