@@ -24,6 +24,7 @@ def index():
     return render_template('index.html', title='Home')
 
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -79,6 +80,11 @@ def create_quest():
         flash('Your quest has been submitted!')
         return redirect(url_for('index'))
     return render_template('createQuest.html', title='Create Quest', form=form)
+
+
+@app.route('/<name>', methods=['GET', 'POST'])
+def profile(name):
+    return render_template('profile.html', title='Profile Page')
 
 
 @app.route('/quests', methods=['GET', 'POST'])
