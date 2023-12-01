@@ -62,10 +62,12 @@ def register():
     return render_template('createAccount.html', title='Register', form=form)
 
 
-@app.route('/<name>', methods=['GET', 'POST'])
-def profile(username):
+@app.route('/user/<username>', methods=['GET', 'POST'])
+@login_required
+def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('testProfile.html', title='Profile Page', user=user)
+    #return render_template('profile.html', title='Profile Page', current_user=user)
 
 #@app.route('/user/<username>', methods=['GET', 'POST'])
 #@login_required
@@ -232,11 +234,6 @@ def profile_pic(user_id):
     else:
         flash('Image not found')
         return redirect(url_for('index'))
-
-
-# @app.route('/quest_page/<quest_id>', methods=['GET', 'POST'])
-# @login_required
-# def quest_page(quest_id):
 
 @app.route('/logout')
 def logout():
