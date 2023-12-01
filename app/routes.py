@@ -62,6 +62,20 @@ def register():
     return render_template('createAccount.html', title='Register', form=form)
 
 
+@app.route('/<name>', methods=['GET', 'POST'])
+def profile(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    return render_template('testProfile.html', title='Profile Page', user=user)
+
+#@app.route('/user/<username>', methods=['GET', 'POST'])
+#@login_required
+#def user(username):
+    #user = User.query.filter_by(username=username).first_or_404()
+    #posts = [
+        #{'author': user, 'body': 'Test post #1'}
+    #]
+    #return render_template('testProfile.html', user=user, posts=posts)
+
 @app.route('/create', methods=['GET', 'POST'])
 @login_required
 def create_quest():
@@ -82,12 +96,6 @@ def create_quest():
         flash('Your quest has been submitted!')
         return redirect(url_for('index'))
     return render_template('createQuest.html', title='Create Quest', form=form)
-
-
-@app.route('/<name>', methods=['GET', 'POST'])
-def profile(name):
-    return render_template('profile.html', title='Profile Page', current_user=current_user)
-
 
 @app.route('/quests', methods=['GET', 'POST'])
 @login_required
@@ -229,16 +237,6 @@ def profile_pic(user_id):
 # @app.route('/quest_page/<quest_id>', methods=['GET', 'POST'])
 # @login_required
 # def quest_page(quest_id):
-
-@app.route('/user/<username>')
-@login_required
-def user(username):
-    user = User.query.filter_by(username=username).first_or_404()
-    posts = [
-        {'author': user, 'body': 'Test post #1'}
-    ]
-    return render_template('profile.html', user=user, posts=posts)
-
 
 @app.route('/logout')
 def logout():
