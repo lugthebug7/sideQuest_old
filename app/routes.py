@@ -24,6 +24,7 @@ def index():
     return render_template('index.html', title='Home')
 
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -49,7 +50,9 @@ def register():
         return redirect(url_for('index'))
     form = NewUserForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data)
+        new_image = request.files['image']
+        image_data = new_image.read()
+        user = User(username=form.username.data, email=form.email.data, image=image_data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -79,6 +82,11 @@ def create_quest():
         flash('Your quest has been submitted!')
         return redirect(url_for('index'))
     return render_template('createQuest.html', title='Create Quest', form=form)
+
+
+@app.route('/<name>', methods=['GET', 'POST'])
+def profile(name):
+    return render_template('profile.html', title='Profile Page', current_user=current_user)
 
 
 @app.route('/quests', methods=['GET', 'POST'])
@@ -203,6 +211,16 @@ def image(quest_id):
 
     if quest and quest.image:
         return send_file(io.BytesIO(quest.image), mimetype='image/jpeg')
+    else:
+        flash('Image not found')
+        return redirect(url_for('index'))
+
+@app.route('/userimage/<int:user_id>')
+def profile_pic(user_id):
+    user = User.query.get(user_id)
+
+    if user and user.image:
+        return send_file(io.BytesIO(user.image), mimetype='image/jpeg')
     else:
         flash('Image not found')
         return redirect(url_for('index'))

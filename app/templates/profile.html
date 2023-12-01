@@ -1,11 +1,83 @@
 {% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}User Profile{% endblock %}
 
 {% block content %}
-    <h1>User: {{ user.username }}</h1>
-    <hr>
-    {% for post in posts %}
-    <p>
-    {{ post.author.username }} says: <b>{{ post.body }}</b>
-    </p>
-    {% endfor %}
+<style>
+    .container {
+        margin-top: 100px;
+    }
+
+    .profile-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .profile-picture {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover; /* Ensure the image covers the entire container */
+    }
+
+    #profile_picture {
+        margin-right: 20px;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+
+</style>
+
+<div class="container">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="profile-container">
+                    <img src="{{ url_for('profile_pic', user_id=current_user.id) }}" alt="Profile Picture" class="profile-picture rounded-circle" id="profile_picture">
+                    <div class="bio">
+                        <h1>{{ current_user.username }}</h1>
+                        <p>This is a brief bio or description about the user. You can include information such as interests, hobbies, or any other details the user wants to share.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-primary" data-toggle="collapse" data-target="#column1">In-Progress</button>
+            <div id="column1" class="collapse collapse-content">
+                <!-- Content for column 1 goes here -->
+                <p>Content for Column 1</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-primary" data-toggle="collapse" data-target="#column2">Completed</button>
+            <div id="column2" class="collapse collapse-content">
+                <!-- Content for column 2 goes here -->
+                <p>Content for Column 2</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-primary" data-toggle="collapse" data-target="#column3">My Creations</button>
+            <div id="column3" class="collapse collapse-content">
+                <!-- Content for column 3 goes here -->
+                <p>Content for Column 3</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
