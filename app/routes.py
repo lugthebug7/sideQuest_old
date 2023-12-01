@@ -212,6 +212,15 @@ def image(quest_id):
 # @login_required
 # def quest_page(quest_id):
 
+@app.route('/user/<username>')
+@login_required
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = [
+        {'author': user, 'body': 'Test post #1'}
+    ]
+    return render_template('profile.html', user=user, posts=posts)
+
 
 @app.route('/logout')
 def logout():
