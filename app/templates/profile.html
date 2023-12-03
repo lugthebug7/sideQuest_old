@@ -9,6 +9,10 @@
         margin-top: 100px;
     }
 
+    .row {
+        margin-left: 5px;
+    }
+
     .mini-container {
         margin-top: 50px;
     }
@@ -29,8 +33,32 @@
         margin-right: 20px;
     }
 
-    .btn {
+
+
+    #column2, #btn2 {
+        background: #A0675F;
+    }
+
+    #column1, #btn1 {
+        background: #675FA0;
+    }
+
+    #btn1, #btn2, #btn3 {
+        font-weight: bold;
+        height: 75px;
         width: 100%;
+    }
+
+    #column3, #btn3 {
+        background: #5FA067;
+    }
+
+    #logoutBtn, #edit {
+        margin-top: 7px;
+    }
+
+    .remove-btn {
+        margin-right: 55px;
     }
 
 
@@ -43,7 +71,19 @@
                 <div class="profile-container">
                     <img src="{{ url_for('profile_pic', user_id=current_user.id) }}" alt="Profile Picture" class="profile-picture rounded-circle" id="profile_picture">
                     <div class="bio">
-                        <h1>{{ current_user.username }}</h1>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h1>{{ current_user.username }}</h1>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-primary" id="edit" data-user-id="{{ current_user.id }}">Edit Profile</button>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="{{ url_for('logout') }}" class="btn btn-primary" id="logoutBtn">Logout</a>
+                            </div>
+
+                        </div>
+
                         <p>This is a brief bio or description about the user. You can include information such as interests, hobbies, or any other details the user wants to share.</p>
                     </div>
                 </div>
@@ -55,42 +95,42 @@
 
 <div class="row">
     <div class="col-md-12">
-        <button class="btn btn-primary" data-toggle="collapse" data-target="#column1">In-Progress</button>
-            <div id="column1" class="collapse collapse-content">
-                {% for quest in in_progress %}
-                    <div class="row">
-                        <div class="col-md-10">
-                            <div class="row" id="in_progress_{{ quest.quest_id }}">
-                                <div class="col-md-4">
-                                    <a href="{{ url_for('quest_page', quest_id = quest.quest_id) }}" class="thumbnail">
-                                        <img src="{{ url_for('image', quest_id=quest.quest_id) }}" alt="Image" style="max-width:100%;">
-                                    </a>
-                                </div>
-                                <div class="col-md-6">
-                                    <h3>{{ quest.in_progress.title }}</h3>
-                                    <p>{{ quest.in_progress.description }}</p>
-                                </div>
+        <button class="btn" id="btn1" data-toggle="collapse" data-target="#column1">In-Progress</button>
+        <div id="column1" class="collapse collapse-content">
+            {% for quest in in_progress %}
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="row" id="in_progress_{{ quest.quest_id }}">
+                            <div class="col-md-4">
+                                <a href="{{ url_for('quest_page', quest_id = quest.quest_id) }}" class="thumbnail">
+                                    <img src="{{ url_for('image', quest_id=quest.quest_id) }}" alt="Image" style="max-width:100%;">
+                                </a>
                             </div>
-                        </div>
-                        <div class="col-md-2" id="removable_{{ quest.quest_id }}">
-                            <div class="row">
-                                <button class="remove-btn" data-quest-id="{{ quest.quest_id }}">Remove SideQuest</button>
+                            <div class="col-md-6">
+                                <h3>{{ quest.in_progress.title }}</h3>
+                                <p>{{ quest.in_progress.description }}</p>
                             </div>
-                            <div class="row">
-                                <button class="complete-btn" data-quest-id="{{ quest.quest_id }}">Mark as Completed</button>
-                            </div>
-
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                    <div class="col-md-2" id="removable_{{ quest.quest_id }}">
+                        <div class="row text-center">
+                            <button class="btn remove-btn" data-quest-id="{{ quest.quest_id }}">Remove SideQuest</button>
+                        </div>
+                        <div class="row text-center">
+                            <button class="btn complete-btn" data-quest-id="{{ quest.quest_id }}">Mark as Completed</button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
+</div>
+
 
 
     <div class="row">
         <div class="col-md-12">
-            <button class="btn btn-primary" data-toggle="collapse" data-target="#column2">Completed</button>
+            <button class="btn" id="btn2" data-toggle="collapse" data-target="#column2">Completed</button>
             <div id="column2" class="collapse collapse-content">
                 {% for quest in completed %}
                     <div class="row" id="completed">
@@ -111,7 +151,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <button class="btn btn-primary" data-toggle="collapse" data-target="#column3">My Creations</button>
+            <button class="btn" id="btn3" data-toggle="collapse" data-target="#column3">My Creations</button>
             <div id="column3" class="collapse collapse-content">
                 {% for quest in created_by %}
                     <div class="row">
@@ -131,6 +171,7 @@
     </div>
 </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function () {
@@ -163,5 +204,6 @@
                 });
             });
         });
+
     </script>
 {% endblock %}
