@@ -18,7 +18,7 @@
 
     /* Sidequest Logo Styling */
         .navbar .navbar-brand {
-            color: #CBBEB3;
+            color: white;
             -webkit-text-stroke: 0.3px black;
             font-family: 'Abril Fatface', serif;
             font-weight: 400;
@@ -56,6 +56,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-JpNbSVNlQsNtBAVjCV9aaZwj9Md27dD10D7dMz3Iw5fmPKgeohCeR18V0yB+ebDy" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyExlAQd9FUj5IepE2S9uKT6zp97VxA7" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 {% endblock %}
 
 
@@ -69,7 +70,7 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             {% if current_user.is_anonymous %}
                 <ul class="nav navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
@@ -88,7 +89,6 @@
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">Profile</a></li>
                 </ul>
             {% endif %}
-            </div>
         </div>
     </nav>
 {% endblock %}
@@ -103,6 +103,13 @@
             {% endif %}
         {% endwith %}
         {% block app_content %}{% endblock %}
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content" style="width: 100%; height: 45vh;">
+            </div>
+        </div>
     </div>
 {% endblock %}
 

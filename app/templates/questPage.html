@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
@@ -40,15 +40,59 @@
                     <img src="{{ url_for('image', quest_id=quest.id) }}" alt="Image" style="max-width:175%;">
                 </div>
             </div>
-            <div>
-                <form method="post" action="{{ url_for('update_quest_status', quest_id=quest.id) }}">
-                    {% if quest_in_progress %}
-                        <button type="submit" name="action" value="remove">Remove Quest</button>
-                    {% else %}
-                        <button type="submit" name="action" value="add">Add Quest</button>
-                    {% endif %}
-                </form>
+            <div id="button-region">
+               {% if completed %}
+                    <button>Quest Already Completed</button>
+               {% else %}
+                    <div id="button-container">
+                        <button id="add-button" data-quest-id="{{ quest.id }}" value="add">Add SideQuest</button>
+                        <button id="remove-button" data-quest-id="{{ quest.id }}" value="remove">Remove SideQuest</button>
+                    </div>
+               {% endif %}
             </div>
         </div>
     </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        // Initially, show the "Add SideQuest" button and hide the "Remove SideQuest" button
+        $('#add-button').show();
+        $('#remove-button').hide();
+
+        // Handle click on "Add SideQuest" button
+        $('#add-button').on('click', function () {
+            const questId = $(this).data('quest-id');
+            $.ajax({
+                url: '/update_quest_status/' + questId,
+                type: 'POST',
+                data: { action: 'add' },
+                success: function (data) {
+                    // On success, hide "Add SideQuest" button and show "Remove SideQuest" button
+                    $('#add-button').hide();
+                    $('#remove-button').show();
+                }
+            });
+        });
+
+        // Handle click on "Remove SideQuest" button
+        $('#remove-button').on('click', function () {
+            const questId = $(this).data('quest-id');
+            $.ajax({
+                url: '/update_quest_status/' + questId,
+                type: 'POST',
+                data: { action: 'remove' },
+                success: function (data) {
+                    // On success, hide "Remove SideQuest" button and show "Add SideQuest" button
+                    $('#remove-button').hide();
+                    $('#add-button').show();
+                }
+            });
+        });
+    });
+</script>
+
+
+
 {% endblock %}

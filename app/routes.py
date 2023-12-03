@@ -241,10 +241,11 @@ def quest_page(quest_id):
     quest = Quest.query.filter_by(id=quest_id).first()
     #user query to determine whether this quest is already in progress
     quest_in_progress = QuestsInProgress.query.filter_by(quest_id=quest_id, user_id=current_user.id).first()
-    return render_template('questPage.html', title='Quest Page', quest=quest, quest_in_progress=quest_in_progress)
+    completed = QuestsCompleted.query.filter_by(user_id=current_user.id, quest_id=quest_id).first()
+    return render_template('questPage.html', title='Quest Page', quest=quest, quest_in_progress=quest_in_progress, completed=completed)
 
 
-@app.route('/update_quest_status/<int:quest_id>', methods=['POST'])
+@app.route('/update_quest_status/<int:quest_id>', methods=['POST', 'GET'])
 def update_quest_status(quest_id):
     action = request.form.get('action')
     if action == 'add':
@@ -258,12 +259,30 @@ def update_quest_status(quest_id):
     return redirect(url_for('quest_page', quest_id=quest_id))
 
 
+@app.route('/get_quest_status/<int:quest_id>', methods=['GET'])
+def get_quest_status(quest_id):
+    quest_in_progress = QuestsInProgress.query.filter_by(quest_id=quest_id, user_id=current_user.id).first()
+    return jsonify({'quest_in_progress': bool(quest_in_progress)})
+
+
 @app.route('/update_quest_status_profile/<int:quest_id>', methods=['POST'])
 def update_quest_status_profile(quest_id):
     quest_in_progress = QuestsInProgress.query.filter_by(quest_id=quest_id, user_id=current_user.id).first()
 
     if quest_in_progress:
         db.session.delete(quest_in_progress)
+        db.session.commit()
+
+    return redirect(url_for('profile'))
+
+@app.route('/complete_quest_status_profile/<int:quest_id>', methods=['POST'])
+def complete_quest_status_profile(quest_id):
+    quest_in_progress = QuestsInProgress.query.filter_by(quest_id=quest_id, user_id=current_user.id).first()
+
+    if quest_in_progress:
+        db.session.delete(quest_in_progress)
+        new_quest = QuestsCompleted(quest_id=quest_id, user_id=current_user.id)
+        db.session.add(new_quest)
         db.session.commit()
 
     return redirect(url_for('profile'))
@@ -320,7 +339,7 @@ def populate_database():
         image_url = f'https://picsum.photos/250/250/?random={i}'
         response = requests.get(image_url)
         if response.status_code == 200:
-            y = random.randint(1, 1500000000000000000000000000000)
+            y = random.randint(1, 150000000000000)
             name = 'Quest' + str(y)
             description = ("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt "
                            "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation "
