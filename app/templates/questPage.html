@@ -40,6 +40,15 @@
                     <img src="{{ url_for('image', quest_id=quest.id) }}" alt="Image" style="max-width:175%;">
                 </div>
             </div>
+            <div>
+                <form method="post" action="{{ url_for('update_quest_status', quest_id=quest.id) }}">
+                    {% if quest_in_progress %}
+                        <button type="submit" name="action" value="remove">Remove Quest</button>
+                    {% else %}
+                        <button type="submit" name="action" value="add">Add Quest</button>
+                    {% endif %}
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}

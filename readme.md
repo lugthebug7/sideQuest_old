@@ -10,3 +10,9 @@ Brooke (By Friday, 12/1):
 
 Luke:
 - Database connection stuff
+
+
+
+Reformat All Quests page 
+Restyle everything
+Complete profile functionality

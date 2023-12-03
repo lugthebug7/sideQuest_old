@@ -36,8 +36,6 @@ class Quest(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
-    in_progress = db.relationship('QuestsInProgress', backref='quest', lazy='dynamic')
-    completed = db.relationship('QuestsCompleted', backref='quest', lazy='dynamic')
     review = db.relationship('Review', backref='quest', lazy='dynamic')
     genre = db.relationship('QuestGenres', backref='quest', lazy='dynamic')
 
@@ -55,12 +53,21 @@ class QuestsInProgress(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     quest_id = db.Column(db.Integer, db.ForeignKey('quest.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    in_progress = db.relationship('Quest', backref='quest_in_progress')
 
 
 class QuestsCompleted(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     quest_id = db.Column(db.Integer, db.ForeignKey('quest.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    completed = db.relationship('Quest', backref='quest_completed')
+
+
+class QuestsCreatedBy(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    quest_id = db.Column(db.Integer, db.ForeignKey('quest.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    created_by = db.relationship('Quest', backref='quest_created')
 
 
 class Genre(db.Model):

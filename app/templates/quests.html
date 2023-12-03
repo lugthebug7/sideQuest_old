@@ -19,45 +19,28 @@
     .carousel-control-prev {
         left: -10%;
     }
-   /* .carousel-control-prev,
-    .carousel-control-next{
-      bottom: 75%;
-}
 
-    .carousel-control-prev {
+
+    #img-box {
+        width: 250px; /* Set a fixed width for the square */
+        height: 250px; /* Set a fixed height for the square */
+        border: 1px solid black;
+        margin: 0 auto;
+        margin-bottom: 20px;
         position: relative;
-        padding: 0;
-        display: table;
-        top: 10px;
-        border-radius: 5px;
-        height: 10px;
-        margin-left: 2px;
-        margin-right: 2px;
-        width: 10px;
+        background: #797270;
+        text-align: center;
+        overflow: hidden; /* Hide overflow to ensure the content fits within the box */
     }
 
-    .carousel-control-next {
-        position: relative;
-        padding: 0;
-        display: table;
-        top: 0px;
-        border-radius: 5px;
-        height: 15px;
-        margin-left: 0px;
-        margin-right: 2px;
-        width: 10px;
+    #image-preview {
+        max-width: 100%; /* Make the image responsive within the square */
+        max-height: 100%; /* Make the image responsive within the square */
+        display: block;
+        margin: 0 auto;
+        object-fit: cover; /* Zoom and crop the image to cover the entire box */
     }
 
-    .carousel-control-next .carousel-control-prev li {
-        background-color: rgba(223, 223, 223, 0.40);
-        border-radius: 5px;
-        height: 10px;
-        margin-left: 2px;
-        margin-right: 2px;
-        width: 10px;
-        cursor: pointer;
-    }
-    */
 </style>
 
 <div class="container">
@@ -78,29 +61,30 @@
 
             <!-- Carousel items -->
             <div class="carousel-inner">
-                {% for chunk in genre1|batch(4) %}
-                    <div class="carousel-item {% if loop.first %}active{% endif %}">
-                        <div class="row">
-                            {% for image in chunk %}
-                                <div class="col-md-3">
-                                    <a href="{{ url_for('quest_page', quest_id = image.Quest.id) }}" class="thumbnail">
-                                        <img src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
-                                    </a>
-                                </div>
-                            {% endfor %}
-                            {% if chunk|length < 4 %} {# Add empty slots to maintain layout #}
-                                {% for i in range(4 - chunk|length) %}
-                                    <div class="col-md-3">
-                                        <a href="#" class="thumbnail">
-                                            <img src="{{ url_for('image', quest_id=filler.id) }}" alt="Image" style="max-width:100%;">
-                                        </a>
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
+    {% for chunk in genre1|batch(4) %}
+        <div class="carousel-item {% if loop.first %}active{% endif %}">
+            <div class="row">
+                {% for image in chunk %}
+                    <div class="col-3 img-box">
+                        <a href="{{ url_for('quest_page', quest_id=image.Quest.id) }}" class="thumbnail">
+                            <img class="image-preview" src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
+                        </a>
                     </div>
                 {% endfor %}
+                {% if chunk|length < 4 %} {# Add empty slots to maintain layout #}
+                    {% for i in range(4 - chunk|length) %}
+                        <div class="col-md-3 img-box">
+                            <a href="#" class="thumbnail">
+                                <img class="image-preview" src="{{ url_for('image', quest_id=filler.id) }}" alt="Image" style="max-width:100%;">
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
+        </div>
+    {% endfor %}
+</div>
+
         </div><!--.Carousel-->
     </div>
 </div>

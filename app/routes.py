@@ -1,4 +1,5 @@
 import io
+from PIL import Image
 import random
 from datetime import datetime
 from urllib import parse
@@ -6,7 +7,7 @@ from urllib import parse
 import requests
 import os
 
-from flask import render_template, redirect, url_for, flash, request, send_file, send_from_directory
+from flask import render_template, redirect, url_for, flash, request, send_file, send_from_directory, jsonify
 from flask_login import login_required, current_user, login_user, logout_user
 from sqlalchemy.orm import aliased
 
@@ -65,6 +66,7 @@ def register():
 @app.route('/user/<username>', methods=['GET', 'POST'])
 @login_required
 def user(username):
+
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('testProfile.html', title='Profile Page', user=user)
     #return render_template('profile.html', title='Profile Page', current_user=user)
@@ -78,26 +80,58 @@ def user(username):
     #]
     #return render_template('testProfile.html', user=user, posts=posts)
 
+
+
+
 @app.route('/create', methods=['GET', 'POST'])
 @login_required
 def create_quest():
     form = CreateQuestForm()
+
     if form.validate_on_submit():
         new_image = request.files['image']
-        image_data = new_image.read()
-        quest = Quest(title=form.quest_name.data, description=form.description.data, image=image_data,
+
+        # Use Pillow to open and process the image
+        quest_image = Image.open(new_image)
+
+        # Resize and crop the image to 250x250
+        quest_image = quest_image.resize((250, 250), Image.BICUBIC)
+
+        # Convert the image to bytes
+        img_byte_array = io.BytesIO()
+        quest_image.save(img_byte_array, format='PNG')
+        img_byte_array = img_byte_array.getvalue()
+
+        quest = Quest(title=form.quest_name.data, description=form.description.data, image=img_byte_array,
                       user_id=current_user.id)
+
         db.session.add(quest)
+
         for i in range(len(form.genres.data)):
             print(form.genres.data[i])
             genre_id = Genre.query.filter_by(genre=form.genres.data[i]).first()
             print(genre_id)
             quest_genre = QuestGenres(quest_id=quest.id, genre_id=genre_id.id)
             db.session.add(quest_genre)
+
+        created_by = QuestsCreatedBy(quest_id=quest.id, user_id=current_user.id)
+        db.session.add(created_by)
         db.session.commit()
+
         flash('Your quest has been submitted!')
         return redirect(url_for('index'))
+
     return render_template('createQuest.html', title='Create Quest', form=form)
+
+
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+    in_progress = QuestsInProgress.query.filter_by(user_id=current_user.id).all()
+    completed = QuestsCompleted.query.filter_by(user_id=current_user.id).all()
+    created_by = QuestsCreatedBy.query.filter_by(user_id=current_user.id).all()
+
+    return render_template('profile.html', title='Profile Page', current_user=current_user, in_progress=in_progress, completed=completed, created_by=created_by)
+
 
 @app.route('/quests', methods=['GET', 'POST'])
 @login_required
@@ -205,14 +239,34 @@ def all_quests():
 @login_required
 def quest_page(quest_id):
     quest = Quest.query.filter_by(id=quest_id).first()
+    #user query to determine whether this quest is already in progress
+    quest_in_progress = QuestsInProgress.query.filter_by(quest_id=quest_id, user_id=current_user.id).first()
+    return render_template('questPage.html', title='Quest Page', quest=quest, quest_in_progress=quest_in_progress)
 
-    # query = (
-    #   db.session.query(Quest.name.label('quest_name'), Quest.description.label('quest_description'), Quest.image.label('quest_image'), QuestGenres.genre.label('quest_genre'))
-    #  .join(QuestGenres, Quest.id == QuestGenres.quest_id)
-    # .filter(Quest.id == quest_id)
-    # )
-    # results = query.all()
-    return render_template('questPage.html', title='Quest Page', quest=quest)
+
+@app.route('/update_quest_status/<int:quest_id>', methods=['POST'])
+def update_quest_status(quest_id):
+    action = request.form.get('action')
+    if action == 'add':
+        new_quest = QuestsInProgress(quest_id=quest_id, user_id=current_user.id)
+        db.session.add(new_quest)
+    elif action == 'remove':
+        quest_in_progress = QuestsInProgress.query.filter_by(quest_id=quest_id, user_id=current_user.id).first()
+        db.session.delete(quest_in_progress)
+    db.session.commit()
+
+    return redirect(url_for('quest_page', quest_id=quest_id))
+
+
+@app.route('/update_quest_status_profile/<int:quest_id>', methods=['POST'])
+def update_quest_status_profile(quest_id):
+    quest_in_progress = QuestsInProgress.query.filter_by(quest_id=quest_id, user_id=current_user.id).first()
+
+    if quest_in_progress:
+        db.session.delete(quest_in_progress)
+        db.session.commit()
+
+    return redirect(url_for('profile'))
 
 
 @app.route('/image/<int:quest_id>')
@@ -245,6 +299,9 @@ def logout():
 def populate_database():
     Quest.query.delete()
     QuestGenres.query.delete()
+    QuestsCreatedBy.query.delete()
+    QuestsInProgress.query.delete()
+    QuestsCompleted.query.delete()
     db.session.commit()
     y = random.randint(1, 1500000000000000000000000000000)
     name = 'Coming Soon ' + str(y)

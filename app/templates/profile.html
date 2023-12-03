@@ -9,6 +9,10 @@
         margin-top: 100px;
     }
 
+    .mini-container {
+        margin-top: 50px;
+    }
+
     .profile-container {
         display: flex;
         align-items: center;
@@ -49,22 +53,61 @@
 </div>
 <div class="container">
 
-    <div class="row">
-        <div class="col-md-12">
-            <button class="btn btn-primary" data-toggle="collapse" data-target="#column1">In-Progress</button>
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-primary" data-toggle="collapse" data-target="#column1">In-Progress</button>
             <div id="column1" class="collapse collapse-content">
-                <!-- Content for column 1 goes here -->
-                <p>Content for Column 1</p>
+            {% if not in_progress %}
+                <p>No quests in progress</p>
+            {% else %}
+                {% for quest in in_progress %}
+                    <div class="row" id="in_progress_{{ quest.quest_id }}">
+                        <div class="col-md-4">
+                            <a href="{{ url_for('quest_page', quest_id = quest.quest_id) }}" class="thumbnail">
+                                <img src="{{ url_for('image', quest_id=quest.quest_id) }}" alt="Image" style="max-width:100%;">
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>{{ quest.in_progress.title }}</h3>
+                            <p>{{ quest.in_progress.description }}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="remove-btn" data-quest-id="{{ quest.quest_id }}">Remove Quest</button>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
             </div>
         </div>
     </div>
+
 
     <div class="row">
         <div class="col-md-12">
             <button class="btn btn-primary" data-toggle="collapse" data-target="#column2">Completed</button>
             <div id="column2" class="collapse collapse-content">
-                <!-- Content for column 2 goes here -->
-                <p>Content for Column 2</p>
+                {% if not completed %}
+                    <p>No quests in completed</p>
+                {% else %}
+                    {% for quest in completed %}
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a href="{{ url_for('quest_page', quest_id = quest.quest_id) }}" class="thumbnail">
+                                        <img src="{{ url_for('image', quest_id=quest.quest_id) }}" alt="Image" style="max-width:100%;">
+                                </a>
+                            </div>
+                            <div class="col-md-6">
+                                <h2>{{ quest.completed.title }}</h2>
+                                <p>{{ quest.completed.description }}</p>
+                            </div>
+                            <div class="col-md-2">
+                                <form method="post" action="{{ url_for('update_quest_status', quest_id=quest.quest_id) }}">
+                                    <button type="submit" name="action" value="remove">Remove Quest</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>
@@ -73,11 +116,42 @@
         <div class="col-md-12">
             <button class="btn btn-primary" data-toggle="collapse" data-target="#column3">My Creations</button>
             <div id="column3" class="collapse collapse-content">
-                <!-- Content for column 3 goes here -->
-                <p>Content for Column 3</p>
+                {% if not created_by %}
+                    <p>You have created no SideQuests</p>
+                {% else %}
+                    {% for quest in created_by %}
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a href="{{ url_for('quest_page', quest_id = quest.quest_id) }}" class="thumbnail">
+                                        <img src="{{ url_for('image', quest_id=quest.quest_id) }}" alt="Image" style="max-width:100%;">
+                                </a>
+                            </div>
+                            <div class="col-md-8">
+                                <h2>{{ quest.created_by.title }}</h2>
+                                <p>{{ quest.created_by.description }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('.remove-btn').on('click', function () {
+                const questId = $(this).data('quest-id');
+                console.log('Ajax request initiated for quest ID:', questId);
+                $.ajax({
+                    url: '/update_quest_status_profile/' + questId,
+                    type: 'POST',
+                    success: function () {
+                        $('#in_progress_' + questId).remove();
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}
