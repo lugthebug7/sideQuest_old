@@ -61,27 +61,6 @@ def register():
         return redirect(url_for('index'))
     return render_template('createAccount.html', title='Register', form=form)
 
-
-@app.route('/user/<username>', methods=['GET', 'POST'])
-@login_required
-def user(username):
-
-    user = User.query.filter_by(username=username).first_or_404()
-    return render_template('testProfile.html', title='Profile Page', user=user)
-    #return render_template('profile.html', title='Profile Page', current_user=user)
-
-#@app.route('/user/<username>', methods=['GET', 'POST'])
-#@login_required
-#def user(username):
-    #user = User.query.filter_by(username=username).first_or_404()
-    #posts = [
-        #{'author': user, 'body': 'Test post #1'}
-    #]
-    #return render_template('testProfile.html', user=user, posts=posts)
-
-
-
-
 @app.route('/create', methods=['GET', 'POST'])
 @login_required
 def create_quest():
