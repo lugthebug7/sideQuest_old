@@ -132,6 +132,13 @@ def profile():
     return render_template('profile.html', title='Profile Page', current_user=current_user, in_progress=in_progress, completed=completed, created_by=created_by)
 
 
+#WOuld something like this work? I still keep getting the add button appearing every time, even when it shouldn't
+@app.route('/check_quest_status/<int:quest_id>', methods=['GET'])
+def check_quest_status(quest_id):
+    quest_in_progress = QuestsInProgress.query.filter_by(quest_id=quest_id, user_id=current_user.id).first()
+    return jsonify({'quest_in_progress': bool(quest_in_progress)})
+
+
 @app.route('/quests', methods=['GET', 'POST'])
 @login_required
 def all_quests():

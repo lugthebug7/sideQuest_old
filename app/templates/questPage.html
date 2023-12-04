@@ -57,9 +57,25 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
-        // Initially, show the "Add SideQuest" button and hide the "Remove SideQuest" button
-        $('#add-button').show();
-        $('#remove-button').hide();
+
+        $('#add-button, #remove-button').hide();
+
+        // Make an AJAX request to check the quest status
+        const questId = $('#add-button').data('quest-id');
+        $.ajax({
+            url: '/check_quest_status/' + questId, // You need to create this endpoint
+            type: 'GET',
+            success: function (data) {
+                if (data.quest_in_progress) {
+                    // If the quest is in progress, show the "Remove SideQuest" button
+                    $('#remove-button').show();
+                } else {
+                    // If the quest is not in progress, show the "Add SideQuest" button
+                    $('#add-button').show();
+                }
+            }
+        });
+
 
         // Handle click on "Add SideQuest" button
         $('#add-button').on('click', function () {

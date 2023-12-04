@@ -43,6 +43,8 @@
 
 </style>
 
+
+
 <div class="container">
     <h2>Stay-At-Home</h2>
     <div class="row">
@@ -324,12 +326,12 @@
                         <div class="row">
                             {% for image in chunk %}
                                 <div class="col-md-3">
-                                    <a href="{{ url_for('quest_page', quest_id = image.Quest.id) }}" class="thumbnail">
-                                        <img src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
+                                     <a href="#" class="thumbnail" data-quest-id="{{ image.Quest.id }}">
+                                        <img class="image-preview" src="{{ url_for('image', quest_id=image.Quest.id) }}" alt="Image" style="max-width:100%;">
                                     </a>
                                 </div>
                             {% endfor %}
-                            {% if chunk|length < 4 %} {# Add empty slots to maintain layout #}
+                            {% if chunk|length < 4 %}
                                 {% for i in range(4 - chunk|length) %}
                                     <div class="col-md-3">
                                         <a href="#" class="thumbnail">
@@ -691,17 +693,26 @@
 </div>
 </div>
 
-
-
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content" style="width: 100%; height: 45vh;">
+            </div>
+        </div>
+    </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+Is there a way to make it faster? The scroll now works, but is too slow.
 <script>
+    const $ = jQuery.noConflict();
+
     $(document).ready(function () {
         let scrollPosition;
+
         $('.thumbnail').on('click', function () {
             scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
             const questId = $(this).data('quest-id');
+
             $.ajax({
                 url: '/quest_page/' + questId,
                 type: 'GET',
@@ -711,11 +722,14 @@
                 }
             });
         });
-        $('#myModal').on('hidden.bs.modal', function () {
-            window.scrollTo(0, scrollPosition);
+
+        $('#myModal').on('shown.bs.modal', function () {
+            $('html, body').animate({ scrollTop: scrollPosition }, 1);
         });
     });
 </script>
+
+
 
 
 
